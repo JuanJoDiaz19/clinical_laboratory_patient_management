@@ -1,6 +1,16 @@
 package ui;
 
+import model.ClinicalLaboratoryManager;
+
+import java.util.Scanner;
+
 public class Main {
+
+    private ClinicalLaboratoryManager clinic;
+    private final Scanner sc;
+    private final String YELLOW;
+    private final String RESET;
+
     public static void main(String[] args) {
         Main main = new Main();
         main.execute();
