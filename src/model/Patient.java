@@ -1,27 +1,39 @@
 package model;
 
-public class Pacient {
+public class Patient {
     private String id;
     private String name;
     private Gender gender;
-    private int edad;
+    private int age;
     private boolean isPrioritized;
     private int priorityValue;
 
-    public Pacient(String id, String name, Gender gender, int edad, boolean isPrioritized, int priorityValue) {
+    public Patient(String id, String name, Gender gender, int age, boolean isPrioritized, int priorityValue) {
         this.id = id;
         this.name = name;
         this.gender = gender;
-        this.edad = edad;
+        this.age = age;
         this.isPrioritized = isPrioritized;
         this.priorityValue = priorityValue;
     }
-    public Pacient(String id, String name, Gender gender, int edad, boolean isPrioritized) {
+    public Patient(String id, String name, Gender gender, int age, boolean isPrioritized) {
         this.id = id;
         this.name = name;
         this.gender = gender;
-        this.edad = edad;
+        this.age = age;
         this.isPrioritized = isPrioritized;
+    }
+
+    public String print() {
+        String ans = "" +
+                "******* PACIENT *******\n" +
+                "*   Id: " + id + "\n"+
+                "*   Name: " + name + "\n"+
+                "*   Gender: " + (gender == Gender.MALE? "Male": (gender == Gender.FEMALE? "Female": "Non binary")) + "\n"+
+                "*   Age: " + age + "\n" +
+                "*   Prioritized: " + (isPrioritized? "YES": "NO") + "\n" +
+                "*   Priority value: " + priorityValue + "\n";
+        return ans;
     }
 
     public String getId() {
@@ -49,11 +61,11 @@ public class Pacient {
     }
 
     public int getEdad() {
-        return edad;
+        return age;
     }
 
     public void setEdad(int edad) {
-        this.edad = edad;
+        this.age = edad;
     }
 
     public boolean isPrioritized() {
@@ -64,7 +76,7 @@ public class Pacient {
         isPrioritized = prioritized;
     }
 
-    public int isPriorityValue() {
+    public int getPriorityValue() {
         return priorityValue;
     }
 

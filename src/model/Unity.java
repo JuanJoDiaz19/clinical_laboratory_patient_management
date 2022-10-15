@@ -7,14 +7,22 @@ import model.dataStructures.stackImplementation.MyLinkedList;
 
 public class Unity {
 
-    private IPriorityQueue<Pacient> priorityQueue;
-    private IStack<Pacient> lastAdded;
-    private IStack<Pacient> lastDeleted;
+    private IPriorityQueue<Patient> priorityQueue;
+    private IStack<Patient> lastAdded;
+    private IStack<Patient> lastDeleted;
 
     public Unity() {
         priorityQueue = new Heap<>();
         lastAdded = new MyLinkedList<>();
         lastDeleted = new MyLinkedList<>();
+    }
+
+    public void enqueue(int priorityValue, Patient pacient) {
+        priorityQueue.insertElement(priorityValue, pacient);
+    }
+
+    public Patient removeFromQueue() {
+        return priorityQueue.extractMax();
     }
 
 }

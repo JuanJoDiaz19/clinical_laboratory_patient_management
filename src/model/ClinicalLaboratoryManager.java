@@ -3,7 +3,7 @@ package model;
 import model.dataStructures.hashTableImplementation.HashTable;
 
 public class ClinicalLaboratoryManager {
-    private HashTable<String, Pacient> patients;
+    private HashTable<String, Patient> patients;
 
     private Unity hematologySection;
     private Unity generalPurposeSection;
@@ -33,11 +33,30 @@ public class ClinicalLaboratoryManager {
         return gender;
     }
     public void addPatient(String id, String name, int g, int age, boolean isPrioritized){
-        Pacient patient = new Pacient(id,name,assingGender(g),age,isPrioritized);
+        Patient patient = new Patient(id,name,assingGender(g),age,isPrioritized);
         patients.insert(id,patient);
     }
     public void addPatient(String id, String name, int g, int age, boolean isPrioritized, int priorityValue) {
-        Pacient patient = new Pacient(id,name,assingGender(g),age,isPrioritized, priorityValue);
+        Patient patient = new Patient(id,name,assingGender(g),age,isPrioritized, priorityValue);
         patients.insert(id,patient);
+    }
+
+    public void enqueueInSection(String id,  int option){
+        Patient patient = patients.search(id);
+        if(option == 1) {
+            hematologySection.enqueue(patient.getPriorityValue(), patient);
+        } else {
+            generalPurposeSection.enqueue(patient.getPriorityValue(), patient);
+        }
+    }
+
+    public String removeFromQueue(int option) {
+        Patient patient;
+        if(option == 1) {
+            patient = hematologySection.removeFromQueue();
+        } else {
+            patient = generalPurposeSection.removeFromQueue();
+        }
+        return patient != null? patient.print(): "The queue is empty :(\n";
     }
 }
