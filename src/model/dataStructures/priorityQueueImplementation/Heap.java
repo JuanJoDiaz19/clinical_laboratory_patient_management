@@ -1,4 +1,4 @@
-package model.priorityQueueImplementation;
+package model.dataStructures.priorityQueueImplementation;
 
 import java.util.ArrayList;
 

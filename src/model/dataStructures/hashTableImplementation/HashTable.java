@@ -1,4 +1,4 @@
-package model.hashTableImplementation;
+package model.dataStructures.hashTableImplementation;
 
 public class HashTable<K,V>  implements IHashTable<K,V>{
     private int m;
@@ -13,7 +13,7 @@ public class HashTable<K,V>  implements IHashTable<K,V>{
     }
 
     @Override
-    public void insert(K key, V value) throws Exception {
+    public void insert(K key, V value) {
         int insertKey = hash(key);
         HashNode<K,V> nodeList = table[insertKey];
 

@@ -1,6 +1,6 @@
 package hashTableImplementation;
 
-import model.hashTableImplementation.HashTable;
+import model.dataStructures.hashTableImplementation.HashTable;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

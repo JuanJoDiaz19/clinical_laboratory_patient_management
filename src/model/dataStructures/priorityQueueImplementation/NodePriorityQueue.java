@@ -1,4 +1,4 @@
-package model.priorityQueueImplementation;
+package model.dataStructures.priorityQueueImplementation;
 
 public class NodePriorityQueue<T> {
     private int priorityValue;

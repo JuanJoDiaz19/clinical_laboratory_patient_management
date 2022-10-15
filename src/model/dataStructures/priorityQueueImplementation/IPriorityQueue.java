@@ -1,4 +1,4 @@
-package model.priorityQueueImplementation;
+package model.dataStructures.priorityQueueImplementation;
 
 public interface IPriorityQueue<T> {
     void insertElement(int priorityValue, T element);

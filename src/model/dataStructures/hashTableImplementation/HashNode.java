@@ -1,4 +1,4 @@
-package model.hashTableImplementation;
+package model.dataStructures.hashTableImplementation;
 
 public class HashNode<K, V> {
     private V value;

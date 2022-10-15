@@ -1,7 +1,7 @@
 package priorityQueueImplementation;
 
-import model.priorityQueueImplementation.Heap;
-import model.priorityQueueImplementation.NodePriorityQueue;
+import model.dataStructures.priorityQueueImplementation.Heap;
+import model.dataStructures.priorityQueueImplementation.NodePriorityQueue;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
