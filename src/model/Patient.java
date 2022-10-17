@@ -25,6 +25,7 @@ public class Patient {
     }
 
     public String print() {
+
         String ans = "" +
                 "******* PACIENT *******\n" +
                 "*   Id: " + id + "\n"+
@@ -60,11 +61,11 @@ public class Patient {
         this.gender = gender;
     }
 
-    public int getEdad() {
+    public int getAge() {
         return age;
     }
 
-    public void setEdad(int edad) {
+    public void setAge(int edad) {
         this.age = edad;
     }
 

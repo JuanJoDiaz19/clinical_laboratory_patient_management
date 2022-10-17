@@ -2,6 +2,10 @@ package model;
 
 import model.dataStructures.hashTableImplementation.HashTable;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+
 public class ClinicalLaboratoryManager {
     private HashTable<String, Patient> patients;
 
@@ -12,6 +16,7 @@ public class ClinicalLaboratoryManager {
         patients = new HashTable<>(5);
         hematologySection = new Unity();
         generalPurposeSection = new Unity();
+        loadData();
     }
 
     public boolean isPatientInSystem(String id) {
@@ -32,11 +37,12 @@ public class ClinicalLaboratoryManager {
         }
         return gender;
     }
-    public void addPatient(String id, String name, int g, int age, boolean isPrioritized){
-        Patient patient = new Patient(id,name,assingGender(g),age,isPrioritized);
-        patients.insert(id,patient);
-    }
     public void addPatient(String id, String name, int g, int age, boolean isPrioritized, int priorityValue) {
+        Patient patient = new Patient(id,name,assingGender(g),age,isPrioritized, priorityValue);
+        patients.insert(id,patient);
+        saveData(patient);
+    }
+    public void loadPatient(String id, String name, int g, int age, boolean isPrioritized, int priorityValue) {
         Patient patient = new Patient(id,name,assingGender(g),age,isPrioritized, priorityValue);
         patients.insert(id,patient);
     }
@@ -58,5 +64,42 @@ public class ClinicalLaboratoryManager {
             patient = generalPurposeSection.removeFromQueue();
         }
         return patient != null? patient.print(): "The queue is empty :(\n";
+    }
+
+    public void loadData() {
+        try {
+            File file = new File("DataBase.csv");
+            FileInputStream fis = new FileInputStream(file);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parameters = line.split(",");
+                loadPatient(parameters[0], parameters[1], (parameters[2].equals("MALE"))? 1 : (parameters[2].equals("FEMALE") ? 2: 3), Integer.parseInt(parameters[3]) , Boolean.parseBoolean(parameters[4]), Integer.parseInt(parameters[5]));
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveData(Patient patient) {
+        String out = patient.getId() + "," + patient.getName() + "," + patient.getGender() + "," +patient.getAge() + "," +patient.isPrioritized() + "," + patient.getPriorityValue() + "\n";
+        try {
+            File file = new File("DataBase.csv");
+            FileInputStream fis = new FileInputStream(file);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                out += line + "\n";
+            }
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(out.getBytes(StandardCharsets.UTF_8));
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
