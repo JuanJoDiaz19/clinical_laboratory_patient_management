@@ -55,7 +55,10 @@ public class Main {
                 removeFromTheQueue();
                 break;
             case 4:
-
+                undoOption();
+                break;
+            case 5:
+                showPeopleInQueue();
                 break;
             default:
                 System.out.println("Please choose an available option :)");
@@ -103,10 +106,21 @@ public class Main {
             clinic.enqueueInSection(id, option);
         }
     }
-
     public void removeFromTheQueue() {
-        System.out.println("Enter the unity that you want to enqueue the patient:\n1. Hematology\n2. General purpose");
+        System.out.println("Enter the unity that you want to call the patient:\n1. Hematology\n2. General purpose");
         int option = Integer.parseInt(sc.nextLine());
         System.out.println(clinic.removeFromQueue(option));
+    }
+    public void showPeopleInQueue() {
+        System.out.println("Enter the unity that you see the Queue:\n1. Hematology\n2. General purpose");
+        int option = Integer.parseInt(sc.nextLine());
+        System.out.println("***** Order of the people in the Queue *****");
+        System.out.println(clinic.showPatientsInQueue(option));
+    }
+
+    public void undoOption() {
+        System.out.println("Enter the unity where you want to undo the option: \n1. Hematology\n2. General purpose");
+        int option = Integer.parseInt(sc.nextLine());
+
     }
 }

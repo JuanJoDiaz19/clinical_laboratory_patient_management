@@ -5,6 +5,8 @@ import model.dataStructures.priorityQueueImplementation.IPriorityQueue;
 import model.dataStructures.stackImplementation.IStack;
 import model.dataStructures.stackImplementation.MyLinkedList;
 
+import java.util.ArrayList;
+
 public class Unity {
 
     private IPriorityQueue<Patient> priorityQueue;
@@ -23,6 +25,17 @@ public class Unity {
 
     public Patient removeFromQueue() {
         return priorityQueue.extractMax();
+    }
+
+    public String showPatientsQueue() {
+        String out = "";
+        ArrayList<Patient> orderPatients = priorityQueue.heapSort();
+        int counter = 0;
+        for (Patient p: orderPatients) {
+            counter++;
+            out += counter + ". " + p.getName() + "\n";
+        }
+        return out;
     }
 
 }

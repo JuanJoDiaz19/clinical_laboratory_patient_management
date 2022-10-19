@@ -4,6 +4,8 @@ import model.dataStructures.priorityQueueImplementation.Heap;
 import model.dataStructures.priorityQueueImplementation.NodePriorityQueue;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class HeapTest {
@@ -54,6 +56,15 @@ class HeapTest {
         heap.insertElement(3, "Ricardo3");
         heap.insertElement(3, "Ricardo4");
         heap.insertElement(3, "Ricardo5");
+    }
+
+    private void setUp7(){
+        heap = new Heap<>();
+        heap.insertElement(16, "Juan");
+        heap.insertElement(3, "Alfa");
+        heap.insertElement(4, "Beta");
+        heap.insertElement(1, "Gamma");
+        heap.insertElement(3, "Omega");
     }
 
 
@@ -155,5 +166,28 @@ class HeapTest {
     public void showMaxTest3(){
         setUp6();
         assertEquals("Ricardo1",heap.showMaximum());
+    }
+
+    @Test
+    public void heapSortTest1() throws CloneNotSupportedException {
+        setUp7();
+        ArrayList<String> arrayList = heap.heapSort();
+        for (String s: arrayList) {
+            System.out.println(s);
+        }
+    }
+    @Test
+    public void heapSortTest2() throws CloneNotSupportedException {
+        setUp7();
+        ArrayList<String> arrayList = heap.heapSort();
+        assertEquals("Juan", heap.showMaximum() );
+    }
+    @Test
+    public void heapSortTest3() throws CloneNotSupportedException {
+        setUp7();
+        ArrayList<String> arrayList = heap.heapSort();
+        assertEquals("Juan", heap.showMaximum());
+        heap.extractMax();
+        assertEquals("Beta", heap.showMaximum());
     }
 }

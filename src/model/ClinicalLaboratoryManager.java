@@ -4,7 +4,7 @@ import model.dataStructures.hashTableImplementation.HashTable;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class ClinicalLaboratoryManager {
     private HashTable<String, Patient> patients;
@@ -100,6 +100,14 @@ public class ClinicalLaboratoryManager {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public String showPatientsInQueue(int option) {
+        if(option == 1) {
+            return hematologySection.showPatientsQueue();
+        } else {
+            return generalPurposeSection.showPatientsQueue();
         }
     }
 }

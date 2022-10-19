@@ -2,7 +2,7 @@ package model.dataStructures.priorityQueueImplementation;
 
 import java.util.ArrayList;
 
-public class Heap<T> implements IPriorityQueue<T>{
+public class Heap<T> implements IPriorityQueue<T>, Cloneable{
     private ArrayList<NodePriorityQueue<T>> arr;
     public Heap() {
         arr = new ArrayList<>();
@@ -38,10 +38,18 @@ public class Heap<T> implements IPriorityQueue<T>{
             maxHeapify(i);
         }
     }
-    public ArrayList heapSort(ArrayList arr) {
-        return null;
+    @Override
+    public ArrayList<T> heapSort(){
+        Heap<T> heap = new Heap<>();
+        heap.setArr((ArrayList<NodePriorityQueue<T>>) this.arr.clone());
+        ArrayList<T> arrayList = new ArrayList<>();
+        while (true) {
+            T element = heap.extractMax();
+            if(element == null) break;
+            arrayList.add(element);
+        }
+        return arrayList;
     }
-
     public String print() {
         String ans = "";
         for (int i = 1; i <arr.size(); i++) {
