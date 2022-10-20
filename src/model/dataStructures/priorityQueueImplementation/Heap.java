@@ -106,4 +106,9 @@ public class Heap<T> implements IPriorityQueue<T>, Cloneable{
             return null;
         }
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

@@ -8,6 +8,6 @@ public interface IPriorityQueue<T> {
     void increaseKey(T element, int newPriorityValue);
     String showElements();
     T showMaximum();
-
     ArrayList<T> heapSort();
+    ArrayList<NodePriorityQueue<T>> getArr();
 }

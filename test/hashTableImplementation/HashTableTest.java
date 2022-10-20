@@ -13,12 +13,12 @@ class HashTableTest {
     public void setUp2(){
         table=new HashTable<>(1);
     }
-    public void setUp3() throws Exception {
+    public void setUp3() {
         table=new HashTable<>(1);
         table.insert("123", "Juan Jose");
         table.insert("456", "Patricia");
     }
-    public void setUp4() throws Exception {
+    public void setUp4() {
         table=new HashTable<>(1);
         table.insert("124", "Pepe");
         table.insert("124", "Papa");
@@ -52,7 +52,7 @@ class HashTableTest {
         assertEquals("Patricia",table.search("456"));
     }
     @Test
-    public void insertTest3() throws Exception {
+    public void insertTest3() {
         setUp1();
         table.insert("123", "Juan Jose");
         table.insert("456", "Patricia");
@@ -73,7 +73,7 @@ class HashTableTest {
     @Test
     public void searchTest3() throws Exception {
         setUp4();
-        assertEquals("Papa",table.search("124"));
+        assertEquals("Pepe",table.search("124"));
     }
 
     @Test
@@ -106,6 +106,18 @@ class HashTableTest {
         assertNull(table.search("123"));
         assertEquals("Patricia", table.search("456"));
     }
+/*
+    @Test
+    public void showElementsInTheList() {
+        setUp3();
+        System.out.println(table.showContent());;
+    }
 
-
+    @Test
+    public void showElementsInTheList2() {
+        setUp1();
+        table.insert("a", "Juancho");
+        table.insert("b", "Alberto");
+        System.out.println(table.showContent());;
+    }*/
 }

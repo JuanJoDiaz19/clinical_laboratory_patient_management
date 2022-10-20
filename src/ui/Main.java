@@ -25,16 +25,18 @@ public class Main {
     public void execute() {
         System.out.println(YELLOW+"==============================="+
                 "\n    WELCOME TO THE CLINIC    "+
-                "\n===============================\n"+RESET);
+                "\n==============================="+RESET);
         int option = 0;
         do {
-            System.out.println("Select one of the following options:\n"+
-                    "1. Register a patient\n" +
-                    "2. Mark queue entry\n" +
-                    "3. Mark queue exit\n" +
-                    "4. Undo option\n"+
-                    "5. Show people in the queue\n" +
-                    "0. Exit\n");
+            System.out.println("\nSelect one of the following options:\n\n"+
+                    "(1). Register a patient\n" +
+                    "(2). Register entry to the clinic\n" +
+                    "(3). Mark queue entry\n" +
+                    "(4). Mark queue exit\n" +
+                    "(5). Undo option\n"+
+                    "(6). Show order in the list\n" +
+                    "(7). Show people in the laboratory\n" +
+                    "(0). Exit\n");
             try {
                 option = Integer.parseInt(sc.nextLine());
                 executeOption(option);
@@ -46,30 +48,36 @@ public class Main {
     public void executeOption(int option) {
         switch (option){
             case 1:
-                addPatient();
+                addPatientToDataBase();
                 break;
             case 2:
-                putInThequeue();
+                addPatientToLaboratory();
                 break;
             case 3:
-                removeFromTheQueue();
+                putInTheQueue();
                 break;
             case 4:
-                undoOption();
+                removeFromTheQueue();
                 break;
             case 5:
+                undoOption();
+                break;
+            case 6:
                 showPeopleInQueue();
                 break;
+            case 7:
+                showPatientsInLaboratory();
+                break;
             default:
-                System.out.println("Please choose an available option :)");
+                System.out.println("Byeeee :)");
                 break;
         }
     }
-    public void addPatient() {
+    public void addPatientToDataBase() {
         System.out.println("Enter the id of the patient: ");
         String id = sc.nextLine();
-        if(clinic.isPatientInSystem(id)) {
-            System.out.println("The patient is already in the system :)");
+        if(clinic.isPatientInDataBase(id)) {
+            System.out.println("The patient is already in the dataBase :)");
         } else {
             System.out.println("Enter the name of the patient: ");
             String name = sc.nextLine();
@@ -95,11 +103,11 @@ public class Main {
         }
     }
 
-    public void putInThequeue() {
+    public void putInTheQueue() {
         System.out.println("Enter the id of the patient:");
         String id = sc.nextLine();
-        if(!clinic.isPatientInSystem(id)) {
-            System.out.println("The patient isn't in the system please register him");
+        if(!clinic.isPatientInLaboratory(id)) {
+            System.out.println("The patient isn't in the laboratory please mark his entry");
         } else {
             System.out.println("Enter the unity that you want to enqueue the patient:\n1. Hematology\n2. General purpose");
             int option = Integer.parseInt(sc.nextLine());
@@ -121,6 +129,16 @@ public class Main {
     public void undoOption() {
         System.out.println("Enter the unity where you want to undo the option: \n1. Hematology\n2. General purpose");
         int option = Integer.parseInt(sc.nextLine());
+        clinic.undoOption(option);
+    }
 
+    public void addPatientToLaboratory() {
+        System.out.println("Enter the id of the patient you want to add: ");
+        String id = sc.nextLine();
+        System.out.println(clinic.addPatientsInLaboratory(id));;
+    }
+
+    public void showPatientsInLaboratory() {
+        System.out.print(clinic.showPatientsInLaboratory());
     }
 }

@@ -2,6 +2,7 @@ package model;
 
 import model.dataStructures.priorityQueueImplementation.Heap;
 import model.dataStructures.priorityQueueImplementation.IPriorityQueue;
+import model.dataStructures.priorityQueueImplementation.NodePriorityQueue;
 import model.dataStructures.stackImplementation.IStack;
 import model.dataStructures.stackImplementation.MyLinkedList;
 
@@ -10,21 +11,26 @@ import java.util.ArrayList;
 public class Unity {
 
     private IPriorityQueue<Patient> priorityQueue;
-    private IStack<Patient> lastAdded;
-    private IStack<Patient> lastDeleted;
+    private IStack<IPriorityQueue<Patient>> lastModifications;
 
     public Unity() {
         priorityQueue = new Heap<>();
-        lastAdded = new MyLinkedList<>();
-        lastDeleted = new MyLinkedList<>();
+        lastModifications = new MyLinkedList<>();
     }
 
-    public void enqueue(int priorityValue, Patient pacient) {
-        priorityQueue.insertElement(priorityValue, pacient);
+    public void enqueue(int priorityValue, Patient patient) {
+        priorityQueue.insertElement(priorityValue, patient);
+        Heap<Patient> newPatients = new Heap<>();
+        newPatients.setArr((ArrayList<NodePriorityQueue<Patient>>) priorityQueue.getArr().clone());
+        lastModifications.push(newPatients);
     }
 
     public Patient removeFromQueue() {
-        return priorityQueue.extractMax();
+        Patient patientOut = priorityQueue.extractMax();
+        Heap<Patient> newPatients = new Heap<>();
+        newPatients.setArr((ArrayList<NodePriorityQueue<Patient>>) priorityQueue.getArr().clone());
+        lastModifications.push(newPatients);
+        return patientOut;
     }
 
     public String showPatientsQueue() {
@@ -36,6 +42,13 @@ public class Unity {
             out += counter + ". " + p.getName() + "\n";
         }
         return out;
+    }
+
+    public void unDoOption() {
+        lastModifications.pop();
+        Heap<Patient> newUndo = new Heap<>();
+        newUndo.setArr((ArrayList<NodePriorityQueue<Patient>>) lastModifications.top().getArr().clone());
+        priorityQueue = newUndo;
     }
 
 }

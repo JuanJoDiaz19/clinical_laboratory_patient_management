@@ -7,20 +7,25 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class ClinicalLaboratoryManager {
-    private HashTable<String, Patient> patients;
+    private HashTable<String, Patient> dataBase;
 
+    private HashTable<String, Patient> patientsInLaboratory;
     private Unity hematologySection;
     private Unity generalPurposeSection;
 
     public ClinicalLaboratoryManager() {
-        patients = new HashTable<>(5);
+        dataBase = new HashTable<>(10);
         hematologySection = new Unity();
         generalPurposeSection = new Unity();
+        patientsInLaboratory = new HashTable<>(5);
         loadData();
     }
 
-    public boolean isPatientInSystem(String id) {
-        return patients.search(id) != null;
+    public boolean isPatientInLaboratory(String id) {
+        return patientsInLaboratory.search(id) != null;
+    }
+    public boolean isPatientInDataBase(String id) {
+        return dataBase.search(id) != null;
     }
     public Gender assingGender(int g){
         Gender gender = null;
@@ -39,20 +44,20 @@ public class ClinicalLaboratoryManager {
     }
     public void addPatient(String id, String name, int g, int age, boolean isPrioritized, int priorityValue) {
         Patient patient = new Patient(id,name,assingGender(g),age,isPrioritized, priorityValue);
-        patients.insert(id,patient);
+        dataBase.insert(id,patient);
         saveData(patient);
     }
     public void loadPatient(String id, String name, int g, int age, boolean isPrioritized, int priorityValue) {
         Patient patient = new Patient(id,name,assingGender(g),age,isPrioritized, priorityValue);
-        patients.insert(id,patient);
+        dataBase.insert(id,patient);
     }
 
     public void enqueueInSection(String id,  int option){
-        Patient patient = patients.search(id);
+        Patient patient = dataBase.search(id);
         if(option == 1) {
             hematologySection.enqueue(patient.getPriorityValue(), patient);
         } else {
-            generalPurposeSection.enqueue(patient.getPriorityValue(), patient);
+            generalPurposeSection.enqueue( patient.getPriorityValue(), patient);
         }
     }
 
@@ -110,4 +115,40 @@ public class ClinicalLaboratoryManager {
             return generalPurposeSection.showPatientsQueue();
         }
     }
+
+    public void undoOption(int option) {
+        if(option == 1) {
+            hematologySection.unDoOption();
+        } else {
+            generalPurposeSection.unDoOption();
+        }
+    }
+
+    public String addPatientsInLaboratory(String id) {
+        String out;
+        Patient p = dataBase.search(id);
+        if(p == null) {
+            out = "Sorry, the patient isn't in the data base, please register him in the data base";
+        } else {
+            if(patientsInLaboratory.search(p.getId()) == null) {
+                patientsInLaboratory.insert(p.getId(), p);
+                out = "Correct entry to the laboratory :)";
+            } else {
+                out = "The patient is already ub the laboratory";
+            }
+
+        }
+        return out;
+    }
+
+    public String showPatientsInLaboratory() {
+        String out = "********** People in the laboratory **********\n\n";
+        ArrayList<Patient> patients = patientsInLaboratory.showContent();
+        for (Patient p: patients) {
+            out+= " * " + p.getName() + "\n";
+        }
+        return out;
+    }
+
+
 }

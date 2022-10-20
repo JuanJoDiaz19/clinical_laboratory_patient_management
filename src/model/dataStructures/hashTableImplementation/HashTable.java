@@ -1,5 +1,7 @@
 package model.dataStructures.hashTableImplementation;
 
+import java.util.ArrayList;
+
 public class HashTable<K,V>  implements IHashTable<K,V>{
     private int m;
     private HashNode<K,V>[] table;
@@ -22,13 +24,15 @@ public class HashTable<K,V>  implements IHashTable<K,V>{
         } else {
             while (nodeList != null) {
                 if(nodeList.getKey().equals(key)) {
-                    break;
+                    return;
                 }
                 nodeList = nodeList.getNext();
             }
             HashNode<K,V> finalNode = new HashNode<>(key, value);
             table[insertKey].setPrevious(finalNode);
+            finalNode.setNext(table[insertKey]);
             table[insertKey] = finalNode;
+
         }
     }
 
@@ -54,16 +58,28 @@ public class HashTable<K,V>  implements IHashTable<K,V>{
             if(deleteNode.getKey().equals(key)){
                 HashNode<K,V> prev = deleteNode.getPrevious();
                 HashNode<K,V> next = deleteNode.getNext();
-                if(deleteNode.getKey().equals(key)){
+                if(deleteNode.getKey().equals(table[deleteKey])){
                     table[deleteKey]=next;
                 }else {
-                    prev.setNext(next);
-                    next.setPrevious(prev);
+                    if(prev != null) prev.setNext(next);
+                    if(next != null)next.setPrevious(prev);
                 }
             }
             deleteNode = deleteNode.getNext();
         }
+    }
 
-
+    public ArrayList<V> showContent() {
+        ArrayList<V> nodesInTheTable = new ArrayList<>();
+        for(int i = 0; i< table.length; i++) {
+            if(table[i] != null){
+                HashNode<K, V> temporalNode = table[i];
+                while (temporalNode != null) {
+                    nodesInTheTable.add(temporalNode.getValue());
+                    temporalNode = temporalNode.getNext();
+                }
+            }
+        }
+        return nodesInTheTable;
     }
 }
