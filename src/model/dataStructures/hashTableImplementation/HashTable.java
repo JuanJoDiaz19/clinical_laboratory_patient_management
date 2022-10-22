@@ -58,7 +58,7 @@ public class HashTable<K,V>  implements IHashTable<K,V>{
             if(deleteNode.getKey().equals(key)){
                 HashNode<K,V> prev = deleteNode.getPrevious();
                 HashNode<K,V> next = deleteNode.getNext();
-                if(deleteNode.getKey().equals(table[deleteKey])){
+                if(deleteNode.equals(table[deleteKey])){
                     table[deleteKey]=next;
                 }else {
                     if(prev != null) prev.setNext(next);

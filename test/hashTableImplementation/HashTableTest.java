@@ -18,7 +18,7 @@ class HashTableTest {
         table.insert("123", "Juan Jose");
         table.insert("456", "Patricia");
     }
-    public void setUp4() {
+    public void     setUp4() {
         table=new HashTable<>(1);
         table.insert("124", "Pepe");
         table.insert("124", "Papa");
@@ -54,10 +54,10 @@ class HashTableTest {
     @Test
     public void insertTest3() {
         setUp1();
-        table.insert("123", "Juan Jose");
-        table.insert("456", "Patricia");
-        assertEquals("Patricia",table.search("456"));
-        assertEquals("Juan Jose",table.search("123"));
+        table.insert("4", "Diaz");
+        table.insert("2", "Londoño");
+        assertEquals("Londoño",table.search("2"));
+        assertEquals("Diaz",table.search("4"));
     }
     @Test
     public void searchTest1() throws Exception {
@@ -78,17 +78,15 @@ class HashTableTest {
 
     @Test
     public void deleteTest1() throws Exception {
-        setUp1();
-        //Con colisiones
-        table.insert("123", "Juan Jose");
-        table.insert("456", "Patricia");
+        setUp3();
+        //Sin colisiones
         table.deleteKey("456");
         assertNull(table.search("456"));
         assertEquals("Juan Jose", table.search("123"));
     }
     @Test
     public void deleteTest2() throws Exception {
-        setUp2();
+        setUp1();
         //Con colisiones
         table.insert("123", "Juan Jose");
         table.insert("456", "Patricia");
@@ -100,24 +98,7 @@ class HashTableTest {
     public void deleteTest3() throws Exception {
         setUp1();
         //Con colisiones
-        table.insert("456", "Patricia");
-        table.insert("123", "Juan Jose");
         table.deleteKey("123");
         assertNull(table.search("123"));
-        assertEquals("Patricia", table.search("456"));
     }
-/*
-    @Test
-    public void showElementsInTheList() {
-        setUp3();
-        System.out.println(table.showContent());;
-    }
-
-    @Test
-    public void showElementsInTheList2() {
-        setUp1();
-        table.insert("a", "Juancho");
-        table.insert("b", "Alberto");
-        System.out.println(table.showContent());;
-    }*/
 }
